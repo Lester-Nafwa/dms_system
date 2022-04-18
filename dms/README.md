@@ -5,20 +5,15 @@
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### cd dms_system
 ```
+cd dms
+
 npm run serve
 ```
+cd server
 
-### Compiles and minifies for production
+npm run start
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ensure to npm vue ng cli
+npm nodejs

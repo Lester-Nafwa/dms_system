@@ -1,5 +1,5 @@
 <template>
- <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
    <div class="d-flex flex-row-reverse">
    
 <button class="nav-item">  <router-link  to="/home">
@@ -38,7 +38,7 @@
     export default {
         data() {
             return {
-                image: {backgroundImage: "url(https://via.placeholder.com/150)"}
+                
           
             };
         }
@@ -53,6 +53,11 @@
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+button{
+border-radius:2em;
+border:none;
+
 }
 </style>
  

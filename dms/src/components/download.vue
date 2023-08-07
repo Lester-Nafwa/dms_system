@@ -74,21 +74,20 @@ async onSubmit(){
  
 <style scoped>
 .imagePreviewWrapper {
-    width: 100%;
-    height: 250px;
-    display: block;
+    width: 40%;
+    height:18em;
     cursor: pointer;
     margin: 0 auto 30px;
     background-size: cover;
-    background-color: grey;
     background-position: center center;
 }
 form {margin: auto;
   width: 100%;
-  border: 3px solid green;
+  border: 3px solid grey;
   padding: 10px;
   width: 50%;
-   text-align: center
+   text-align: center;
+   background:#F5F5F5;
   }
 </style>
   

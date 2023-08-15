@@ -1,8 +1,10 @@
-<template>
+ <template>
   <div>
     <p v-if="user">Customer:{{ user.email }}</p>
     <button class="ui pink submit button" @click="signout">Signout</button>
   </div>
+
+  <div>
   <div class='dept-seg'>
   <h1>Please Select Department</h1>
   <transition name="slide">
@@ -42,17 +44,31 @@
     </table>
   </transition>
   </div>
+  </div>
   <div class="card-body">
     <div v-if="user" class="alert alert-success" role="alert">
       You are logged in!
     </div>
+    <div class='posted-image'>
+
+    <Details>
+   <div> {{ name }}</div> <!-- Displaying name from data -->
+      <div>{{ date }}</div> <!-- Displaying date from data -->
+      <img :src="imageUrl" alt="Image" />
+    </Details>
+ 
+  </div>
   </div>
   <hr />
   <footer>Copyright © 2022 k-DMS Kenya</footer>
 </template>
 <script>
 import { getAuth, setPersistence, signOut } from "firebase/auth";
+import Details from "@/components/Details.vue";
 export default {
+components: {
+    Details
+  },
   data() {
     return {
       user: null,
@@ -84,7 +100,7 @@ font-size:2em;
 }
 .dept-seg{
   width:40%;
-  margin-left:30em;
+  margin-left:10em;
   background:#F5F5F5;
   border-radius:1em;
   padding:2em;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="signout">
     <p v-if="user">Customer:{{ user.email }}</p>
     <button class="ui pink submit button" @click="signout">Signout</button>
   </div>
@@ -44,7 +44,6 @@
         </table>
       </transition>
     </div>
-
     <div class="card-body">
       <div v-if="user" class="alert alert-success" role="alert">
         You are logged in!
@@ -58,7 +57,10 @@
 
 
       </div>
+
+
     </div>
+
   </div>
   <hr />
   <footer>Copyright © 2022 k-DMS Kenya</footer>
@@ -68,7 +70,8 @@ import { getAuth, setPersistence, signOut } from "firebase/auth";
 import Details from "@/components/details.vue";
 export default {
   components: {
-    Details
+    Details,
+
   },
   data() {
     return {
@@ -101,12 +104,13 @@ h1 {
 }
 
 .dept-seg {
-  width: 40%;
-  margin-left: 10em;
+  width: fit-content;
+  margin-left: 2.5em;
   background: #F5F5F5;
   border-radius: 1em;
   padding: 2em;
-  padding-left: 10em;
+  padding-left: 3em;
+  margin-top: 0.5em;
 }
 
 .table-item {
@@ -115,6 +119,6 @@ h1 {
 
 .departments-list {
   display: flex;
-  gap: 2em;
+  gap: 1em;
 }
 </style>

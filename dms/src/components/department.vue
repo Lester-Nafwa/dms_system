@@ -50,10 +50,12 @@
         You are logged in!
       </div>
       <div class='posted-image'>
+        <div>
+          <span>Updated Documents </span>
+        </div>
 
-        <details>
-<Details/>
-        </details>
+        <Details />
+
 
       </div>
     </div>
@@ -63,7 +65,7 @@
 </template>
 <script>
 import { getAuth, setPersistence, signOut } from "firebase/auth";
-import Details from "@/components/details.vue"; 
+import Details from "@/components/details.vue";
 export default {
   components: {
     Details
@@ -114,4 +116,5 @@ h1 {
 .departments-list {
   display: flex;
   gap: 2em;
-}</style>
+}
+</style>

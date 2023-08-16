@@ -12,7 +12,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.use("/uploads", express.static("uploads"));
 const fileFilter = (_req, file, cb) => {
   const allowedTypes = [
     "image/jpeg",
@@ -90,7 +90,8 @@ app.get("/api/upload/data", (_req, res) => {
     const imageFiles = files.filter(file => {
       const fileExtension = path.extname(file).toLowerCase();
       return [".jpg", ".jpeg", ".png",".pdf"].includes(fileExtension);
-  
+   
+      
     });
 
     res.json({ message: " Files retrieved successfully", files: imageFiles });

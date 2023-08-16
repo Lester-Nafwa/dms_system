@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { auth } from '../firebase'
+import { auth } from "../firebase";
 import home from "@/components/home.vue";
 import signin from "@/components/signin.vue";
 import register from "@/components/register.vue";
@@ -120,18 +120,21 @@ const routes = [
 
 const router = createRouter({ history: createWebHistory(), routes });
 
- router.beforeEach((to, from, next) => {
-  if (to.path === '/login' && auth.currentUser) {
-    next()
+router.beforeEach((to, from, next) => {
+  if (to.path === "/login" && auth.currentUser) {
+    next();
     return;
   }
 
-  if (to.matched.some(record => record.meta.requiresAuth) && !auth.currentUser) {
-    next('/signin')
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !auth.currentUser
+  ) {
+    next("/signin");
     return;
   }
 
   next();
-})
+});
 
 export default router;

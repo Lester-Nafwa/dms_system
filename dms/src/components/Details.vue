@@ -1,9 +1,10 @@
- <template>
+<template>
   <div>
-    <img :src="imageUrl" alt=""/>
-    <div>{{ name }}</div>
-    <div>{{ date }}</div>
-    <img :src="imageUrl" alt="Image" />
+    <div v-for="(file, index) in imageFiles" :key="index">
+  
+      <div>{{ file.name }}</div>
+       
+    </div>
   </div>
 </template>
 
@@ -13,9 +14,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      imageUrl: '', 
-      name: 'file.name',     
-      
+      imageFiles: [],
     };
   },
   created() {
@@ -25,10 +24,13 @@ export default {
     fetchData() {
       axios.get("http://localhost:3000/api/upload/data")
         .then(response => {
-          this.imageUrl = response.data.imageUrl;
-          this.name = response.data.name;
-          this.date = response.data.date;
+          this.imageFiles = response.data.files.map(file => ({
+            name: file,
+            url: `http://localhost:3000//uploads/${file}`,
+          }));
+          console.log('try me',response.data)
         })
+        
         .catch(error => {
           console.error("Error fetching data:", error);
         });

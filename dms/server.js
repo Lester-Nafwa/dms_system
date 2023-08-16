@@ -6,7 +6,7 @@ const fs = require("fs"); // Import the fs module
 const path = require("path"); // Import the path module
 
 const corsOptions = {
-  origin: "http://10.50.238.145:8080", // Adjust this to match your Vue development server's origin
+  origin: "http://localhost:8080", // Adjust this to match your Vue development server's origin
   methods: "GET, POST, PUT, DELETE",
   optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
 };
@@ -89,10 +89,11 @@ app.get("/api/upload/data", (_req, res) => {
 
     const imageFiles = files.filter(file => {
       const fileExtension = path.extname(file).toLowerCase();
-      return [".jpg", ".jpeg", ".png"].includes(fileExtension);
+      return [".jpg", ".jpeg", ".png",".pdf"].includes(fileExtension);
+  
     });
 
-    res.json({ message: "Image files retrieved successfully", files: imageFiles });
+    res.json({ message: " Files retrieved successfully", files: imageFiles });
   });
 });
 

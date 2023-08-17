@@ -1,6 +1,6 @@
 <template>
   <div class="details-file">
-  <div>  <div v-for="(file, index) in docfiles" :key="index">
+  <div class="items-buttons">  <div v-for="(file, index) in docfiles" :key="index">
       <a :href="serverUrl + file.url" target="_blank">{{ file.name }}</a>
    <div>   <button @click="openModal(serverUrl +file.url, isImage(file.name))">Preview</button></div>
 
@@ -69,7 +69,6 @@ export default {
 .details-file{
   width: fit-content;
   height: fit-content;
-  background:linear-gradient(white,rgb(213, 195, 195));
   padding: 1em;
   display: flex;
   gap: 2em
@@ -77,8 +76,14 @@ export default {
 }
 .items-preview{
   height: 40em;
-  width: 30em;
+  width: 34em;
   background: #e9e2e2;
 }
  
+ .items-buttons{
+  background:whitesmoke;
+  border: solid grey;
+  padding-left: 1em;
+  padding-top: 0.5em;
+ }
 </style>

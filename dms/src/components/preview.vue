@@ -29,7 +29,7 @@
   <style>
 
 .image-dimensions{
-  width: 30em;
+  width: 28em;
   height: 38em;
 }
 

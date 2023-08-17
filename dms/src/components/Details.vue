@@ -2,7 +2,7 @@
   <div class="details-file">
   <div class="items-buttons">  <div v-for="(file, index) in docfiles" :key="index">
       <a :href="serverUrl + file.url" target="_blank">{{ file.name }}</a>
-   <div>   <button @click="openModal(serverUrl +file.url, isImage(file.name))">Preview</button></div>
+   <div>   <button @click="openModal(serverUrl +file.url, isImage(file.name))" class="btn-preview">Preview</button></div>
 
     </div>
     </div>
@@ -85,5 +85,14 @@ export default {
   border: solid grey;
   padding-left: 1em;
   padding-top: 0.5em;
+ }
+ .btn-preview{
+  color: white;
+  background:green;
+  outline: none;
+  border-radius: 0.6em;
+  width: 5em;
+  font-size: 0.8em;
+  font-style: lato;
  }
 </style>

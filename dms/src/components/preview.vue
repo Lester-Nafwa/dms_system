@@ -6,7 +6,7 @@
           <img :src="fileUrl" alt="File Preview" class="image-dimensions"/>
         </template>
         <template v-else>
-          <iframe :src="fileUrl" width="100%" height="620em" frameborder="0"></iframe>
+          <iframe :src="fileUrl" width="100%" height="620em" frameborder="1"></iframe>
         </template>
       </div>
     </div>
@@ -29,7 +29,7 @@
   <style>
 
 .image-dimensions{
-  width: 28em;
+ 
   height: 38em;
 }
 

@@ -1,25 +1,29 @@
 <template>
-    <span>Preview Files</span>
-<div class="image-modal" v-if="show">
-    <div class="modal-content">
-      <span class="close-btn" @click="closeModal">&times;</span>
-      <img :src="imageUrl" alt="Image" />
+    <div class="file-modal" v-if="show">
+      <div class="modal-content">
+        <span class="close-btn" @click="closeModal">&times;</span>
+        <template v-if="isImage">
+          <img :src="fileUrl" alt="File Preview" />
+        </template>
+        <template v-else>
+          <iframe :src="fileUrl" width="100%" height="500px" frameborder="0"></iframe>
+        </template>
+      </div>
     </div>
-  </div>
-
-</template>
-<script>
-export default {
-  props: {
-    imageUrl: String,
-    show: Boolean,
-  },
-  methods: {
-    closeModal() {
-      this.$emit("close");
+  </template>
+  
+  <script>
+  export default {
+    props: {
+      fileUrl: String,
+      show: Boolean,
+      isImage: Boolean,
     },
-  },
-};
-
-
-</script>
+    methods: {
+      closeModal() {
+        this.$emit("close");
+      },
+    },
+  };
+  </script>
+  

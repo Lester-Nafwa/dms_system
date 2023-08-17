@@ -2,11 +2,13 @@
   <div class="details-file">
   <div>  <div v-for="(file, index) in docfiles" :key="index">
       <a :href="serverUrl + file.url" target="_blank">{{ file.name }}</a>
-      <button @click="openModal(file.url)">Preview</button>
+      <button @click="openModal(serverUrl +file.url, isImage(file.name))">Preview</button>
+
     </div>
     </div>
     <div class="items-preview">
-    <Preview :show="modalShow" :imageUrl="modalImageUrl" @close="closeModal"  />
+      <Preview :show="modalShow" :fileUrl="modalFileUrl" :isImage="modalIsImage" @close="closeModal" />
+
     </div>
   </div>
 </template>
@@ -24,8 +26,9 @@ export default {
       docfiles: [],
       serverUrl: "http://localhost:3000",
       modalShow: false,
-      modalImageUrl: "",
-    };
+      modalFileUrl: "",
+      modalIsImage: false,
+    }
   },
   created() {
     this.fetchData();
@@ -38,20 +41,27 @@ export default {
             name: file,
             url: `/uploads/${file}`,
           }));
-          console.log('try me',response.data)
+          console.log('try me',response.data);
+         
         })
         
         .catch(error => {
           console.error("Error fetching data:", error);
         });
     },
-    openModal(imageUrl) {
-      this.modalImageUrl = imageUrl;
+    openModal(fileUrl, isImage) {
+      this.modalFileUrl = fileUrl;
+      this.modalIsImage = isImage;
       this.modalShow = true;
     },
     closeModal() {
       this.modalShow = false;
     },
+    isImage(fileName) {
+      const ext = fileName.split(".").pop().toLowerCase();
+      return ["jpg", "jpeg", "png"].includes(ext);
+    },
+    
   },
 };
 </script>

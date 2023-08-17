@@ -2,12 +2,12 @@
   <div class="details-file">
   <div>  <div v-for="(file, index) in docfiles" :key="index">
       <a :href="serverUrl + file.url" target="_blank">{{ file.name }}</a>
-      <button @click="openModal(serverUrl +file.url, isImage(file.name))">Preview</button>
+   <div>   <button @click="openModal(serverUrl +file.url, isImage(file.name))">Preview</button></div>
 
     </div>
     </div>
     <div class="items-preview">
-      <Preview :show="modalShow" :fileUrl="modalFileUrl" :isImage="modalIsImage" @close="closeModal" />
+      <Preview :show="modalShow" :fileUrl="modalFileUrl" :isImage="modalIsImage" @close="closeModal"  class="list-items"/>
 
     </div>
   </div>
@@ -77,6 +77,8 @@ export default {
 }
 .items-preview{
   height: 40em;
-  width: 15em;
+  width: 30em;
+  background: #e9e2e2;
 }
+ 
 </style>

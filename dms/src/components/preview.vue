@@ -3,10 +3,10 @@
       <div class="modal-content">
         <span class="close-btn" @click="closeModal">&times;</span>
         <template v-if="isImage">
-          <img :src="fileUrl" alt="File Preview" />
+          <img :src="fileUrl" alt="File Preview" class="image-dimensions"/>
         </template>
         <template v-else>
-          <iframe :src="fileUrl" width="100%" height="500px" frameborder="0"></iframe>
+          <iframe :src="fileUrl" width="100%" height="620em" frameborder="0"></iframe>
         </template>
       </div>
     </div>
@@ -26,4 +26,11 @@
     },
   };
   </script>
-  
+  <style>
+
+.image-dimensions{
+  width: 30em;
+  height: 38em;
+}
+
+</style>

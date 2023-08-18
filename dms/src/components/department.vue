@@ -106,11 +106,13 @@ h1 {
 .dept-seg {
   width: fit-content;
   margin-left: 2.5em;
-  background: #F5F5F5;
+  background:whitesmoke;
   border-radius: 1em;
-  padding: 2em;
-  padding-left: 3em;
-  margin-top: 0.5em;
+padding: 3em;
+  margin-top: 3.5em;
+  height: 20em;
+  box-shadow: 4em;
+  border:solid gray;
 }
 
 .table-item {

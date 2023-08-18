@@ -105,7 +105,9 @@ export default {
 .items-preview {
   height: 40em;
   width: 34em;
-  background: #e9e2e2;
+  background:whitesmoke;
+  border: solid grey;
+  border-radius: 0.5em;
 }
 
 .items-buttons {

@@ -96,6 +96,9 @@ h1 {
   height: 20em;
   box-shadow: 4em;
   border: solid gray;
+  font-size: 2em;
+  font-family: lato;
+  font-weight: 300;
 }
 
 .table-item {
@@ -103,7 +106,6 @@ h1 {
 }
 
 .departments-list {
-  display: flex;
-  gap: 1em;
+margin-left: 30em; 
 }
 </style>

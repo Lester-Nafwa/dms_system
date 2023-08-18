@@ -23,8 +23,10 @@ export default {
       file: "",
       message: "",
       previewImage: null,
+      selectedFileType: "cs",
     };
   },
+
   methods: {
     selectFile() {
       this.$refs.fileInput.click();
@@ -70,7 +72,8 @@ export default {
       formData.append("file", this.file);
 
       try {
-        await axios.post("http://localhost:3000/api/upload", formData);
+        await axios.post(`http://localhost:3000/api/upload/${this.selectedFileType}`, formData);
+
         this.message = "Uploaded!!";
       } catch (err) {
         console.log(err);

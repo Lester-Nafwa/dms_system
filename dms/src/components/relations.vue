@@ -12,7 +12,7 @@
           </router-link>
         </button>
         <div class="fields">
-          <download class="fields-sec"></download>
+          <rms_download class="fields-sec"></rms_download>
         </div>
         <br />
       </form>
@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import download from "@/components/download.vue";
+import rms_download from "@/components/rms_download.vue";
 import Details from "@/components/details.vue";
 
 export default {
   components: {
-    download,
+    rms_download,
     Details,
   },
   data() {
@@ -60,5 +60,8 @@ export default {
 .details-component{
   padding-right: 2em;
 }
- 
+.text-center{
+  font-size: 1.5em;
+  font-family: lato;
+ }
 </style>

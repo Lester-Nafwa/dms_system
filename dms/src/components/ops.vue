@@ -12,7 +12,7 @@
           </router-link>
         </button>
         <div class="fields">
-          <download class="fields-sec"></download>
+          <ops_download class="fields-sec"></ops_download>
         </div>
         <br />
       </form>
@@ -22,19 +22,19 @@
         <div>
           <span>Updated Documents </span>
         </div>
-        <Details  class="details-component"/>
+        <Details class="details-component" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import download from "@/components/download.vue";
+import ops_download from "@/components/ops_download.vue";
 import Details from "@/components/details.vue";
 
 export default {
   components: {
-    download,
+    ops_download,
     Details,
   },
   data() {
@@ -48,17 +48,20 @@ export default {
 .file {
   display: flex;
 }
-.card-body{
+.card-body {
   margin-left: 12em;
 }
-.fields-sec{
+.fields-sec {
   width: 25em;
   margin-left: 4em;
   margin-top: 2em;
   border-radius: 0.5em;
 }
-.details-component{
+.details-component {
   padding-right: 2em;
 }
- 
+.text-center {
+  font-size: 1.5em;
+  font-family: lato;
+}
 </style>

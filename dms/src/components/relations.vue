@@ -22,7 +22,7 @@
         <div>
           <span>Updated Documents </span>
         </div>
-        <Details  class="details-component"/>
+        <Rmdetails  class="details-component"/>
       </div>
     </div>
   </div>
@@ -30,12 +30,12 @@
 
 <script>
 import rms_download from "@/components/rms_download.vue";
-import Details from "@/components/details.vue";
+import Rmdetails from "@/components/rmdetails.vue";
 
 export default {
   components: {
     rms_download,
-    Details,
+    Rmdetails,
   },
   data() {
     return {

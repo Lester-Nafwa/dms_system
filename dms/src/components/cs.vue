@@ -22,7 +22,7 @@
         <div>
           <span>Updated Documents </span>
         </div>
-        <Details  class="details-component"/>
+        <Csdetails  class="details-component"/>
       </div>
     </div>
   </div>
@@ -30,12 +30,12 @@
 
 <script>
 import cs_downloads from "@/components/cs_downloads.vue";
-import Details from "@/components/details.vue";
+import Csdetails from "@/components/csdetails.vue";
 
 export default {
   components: {
     cs_downloads,
-    Details,
+    Csdetails,
   },
   data() {
     return {

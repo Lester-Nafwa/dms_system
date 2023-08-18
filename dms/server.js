@@ -16,7 +16,7 @@ app.use("/uploads", express.static("uploads"));
 
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {
-    let destinationFolder = "";
+    let destinationFolder = "uploads";
 
     switch (_req.params.fileType) {
       case "cash":
@@ -25,9 +25,9 @@ const storage = multer.diskStorage({
       case "cs":
         destinationFolder = "cs_uploads";
         break;
-        case "rms":
-          destinationFolder = "rms_uploads";
-          break;
+      case "rms":
+        destinationFolder = "rms_uploads";
+        break;
       case "ops":
         destinationFolder = "ops_uploads";
         break;
@@ -44,7 +44,12 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter: (_req, file, cb) => {
-    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "application/pdf"];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "application/pdf",
+    ];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
@@ -52,30 +57,24 @@ const upload = multer({
     }
   },
   limits: {
-    fileSize: 10000000, // 10MB
+    fileSize: 10000000,
   },
 });
 
 const PORT = process.env.PORT || "3000";
 
-app.post(
-  "/api/upload/:fileType",
-  upload.single("file"),
-  (req, res) => {
-    if (!req.file) {
-      console.log("No file received");
-      res.status(400).json({ error: "wrong format" });
-      return;
-    }
-    console.log("File uploaded successfully:", req.file.filename);
-    res.json({
-      message: "File uploaded successfully",
-      filename: req.file.filename,
-    });
+app.post("/api/upload/:fileType", upload.single("file"), (req, res) => {
+  if (!req.file) {
+    console.log("No file received");
+    res.status(400).json({ error: "wrong format" });
+    return;
   }
-);
-
-// Error handling middleware
+  console.log("File uploaded successfully:", req.file.filename);
+  res.json({
+    message: "File uploaded successfully",
+    filename: req.file.filename,
+  });
+});
 app.use((err, _req, res, _next) => {
   if (err.message === "Incorrect file") {
     res.status(422).json({ error: "Only images and PDFs are allowed" });
@@ -84,8 +83,8 @@ app.use((err, _req, res, _next) => {
   }
 });
 
-app.get("/api/upload/data", (_req, res) => {
-  const directoryPath = path.join(__dirname, "uploads");
+app.get("/api/upload/data/:fileType", (_req, res) => {
+  const directoryPath = path.join(__dirname, _req.params.fileType + "_uploads");
 
   fs.readdir(directoryPath, (err, files) => {
     if (err) {

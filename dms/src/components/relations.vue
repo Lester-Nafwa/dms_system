@@ -1,29 +1,64 @@
- <template>
+<template>
+  <img v-bind:src="img" alt="" />
 
- 
- 
-<h1 class="text-center">RELATIONSHIP DEPARTMENT</h1>
-    <div class="file">
-   <form @submit.prevent="onSubmit" enctype="multipart/form-data">
-   <button type="button" class="btn btn-outline-primary"> <router-link class="nav-link link-dark" to="/department">BACK </router-link></button>
-      <div class="fields">
-         <download></download></div><br>
+  <h1 class="text-center">RELATIONSHIP DEPARTMENT</h1>
 
-         </form>
-     
-</div>
-<button type="button" class="btn btn-outline-dark">Dark</button>
-
+  <div class="file">
+    <div>
+      <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+        <button type="button" class="btn btn-outline-primary">
+          <router-link class="nav-link link-dark" to="/department"
+            >BACK
+          </router-link>
+        </button>
+        <div class="fields">
+          <download class="fields-sec"></download>
+        </div>
+        <br />
+      </form>
+    </div>
+    <div class="card-body">
+      <div class="posted-image">
+        <div>
+          <span>Updated Documents </span>
+        </div>
+        <Details  class="details-component"/>
+      </div>
+    </div>
+  </div>
 </template>
 
- 
 <script>
 import download from "@/components/download.vue";
- 
- 
+import Details from "@/components/details.vue";
+
 export default {
   components: {
-    download
+    download,
+    Details,
   },
-}
+  data() {
+    return {
+      img: "assets/back.png",
+    };
+  },
+};
 </script>
+<style scoped>
+.file {
+  display: flex;
+}
+.card-body{
+  margin-left: 12em;
+}
+.fields-sec{
+  width: 25em;
+  margin-left: 4em;
+  margin-top: 2em;
+  border-radius: 0.5em;
+}
+.details-component{
+  padding-right: 2em;
+}
+ 
+</style>

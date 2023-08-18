@@ -89,7 +89,7 @@ export default {
     },
     isImage(fileName) {
       const ext = fileName.split(".").pop().toLowerCase();
-      return ["jpg", "jpeg", "png"].includes(ext);
+      return ["jpg", "jpeg", "png","svg"].includes(ext);
     },
   },
 };
@@ -113,6 +113,8 @@ export default {
   border: solid grey;
   padding-left: 1em;
   padding-top: 0.5em;
+  padding-right: 3em;
+  border-radius: 0.5em;
 }
 .btn-preview {
   color: whitesmoke;
@@ -169,7 +171,6 @@ export default {
 }
 .search-icons{
   height: 2em;
-  background: linear-gradient(green,white);
   border-radius: 0.5em;
   color: white;
   box-shadow: 2em;

@@ -31,6 +31,7 @@
 .image-dimensions{
  
   height: 38em;
+  padding-right: 5em;
 }
 
 </style>

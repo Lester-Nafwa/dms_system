@@ -5,7 +5,7 @@
   </div>
 
   <div class="departments-list">
-    <div class='dept-seg'>
+    <div class="dept-seg">
       <h1>Please Select Department</h1>
       <transition name="slide">
         <table class="table-item">
@@ -48,31 +48,15 @@
       <div v-if="user" class="alert alert-success" role="alert">
         You are logged in!
       </div>
-      <div class='posted-image'>
-        <div>
-          <span>Updated Documents </span>
-        </div>
-
-        <Details />
-
-
-      </div>
-
-
     </div>
-
   </div>
   <hr />
   <footer>Copyright © 2022 k-DMS Kenya</footer>
 </template>
 <script>
 import { getAuth, setPersistence, signOut } from "firebase/auth";
-import Details from "@/components/details.vue";
-export default {
-  components: {
-    Details,
 
-  },
+export default {
   data() {
     return {
       user: null,
@@ -100,19 +84,18 @@ export default {
 <style scoped>
 h1 {
   font-size: 2em;
-
 }
 
 .dept-seg {
   width: fit-content;
   margin-left: 2.5em;
-  background:whitesmoke;
+  background: whitesmoke;
   border-radius: 1em;
-padding: 3em;
+  padding: 3em;
   margin-top: 3.5em;
   height: 20em;
   box-shadow: 4em;
-  border:solid gray;
+  border: solid gray;
 }
 
 .table-item {

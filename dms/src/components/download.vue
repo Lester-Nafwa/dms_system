@@ -1,10 +1,6 @@
 <template>
   <form @submit.prevent="onSubmit" enctype="multipart/form-data">
-    <div
-      class="imagePreviewWrapper"
-      :style="{ 'background-image': `url(${previewImage})` }"
-      @click="selectFile"
-    ></div>
+    <div class="imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }" @click="selectFile"></div>
 
     <input ref="fileInput" type="file" @input="pickFile" @change="onSelect" />
     <br />
@@ -87,13 +83,13 @@ export default {
 
 <style scoped>
 .imagePreviewWrapper {
-  width: 40%;
-  height: 18em;
+  height: 25em;
   cursor: pointer;
   margin: 0 auto 30px;
   background-size: cover;
   background-position: center center;
 }
+
 form {
   margin: auto;
   width: 100%;

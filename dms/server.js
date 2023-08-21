@@ -1,9 +1,21 @@
+// import { auth } from "../firebase";
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const app = express();
 const fs = require("fs");
 const path = require("path");
+const admin = require("firebase-admin"); 
+
+ 
+
+// var serviceAccount = require(auth);
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: "https://dms-kenya-default-rtdb.firebaseio.com"
+// });
+
 
 const corsOptions = {
   origin: "http://localhost:8080",
@@ -13,6 +25,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use("/uploads", express.static("uploads"));
+app.use("/rms_uploads", express.static("rms_uploads"));
+app.use("/ops_uploads", express.static("ops_uploads"));
+app.use("/cs_uploads", express.static("cs_uploads"));
+app.use("/cash_uploads", express.static("cash_uploads"));
+
 
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {

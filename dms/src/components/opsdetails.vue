@@ -62,7 +62,7 @@ export default {
         .then((response) => {
           this.docfiles = response.data.files.map((file) => ({
             name: file,
-            url: `/uploads/${file}`,
+            url: `/${this.selectedFileType}_uploads/${file}`, // Updated URL construction
           }));
           console.log("try me", response.data);
         })

@@ -26,13 +26,14 @@ const routes = [
     path: "/department",
     component: department,
 
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,
+  },
   },
   {
     path: "/contactus",
     component: contactus,
 
-    meta: { requiresAuth: false },
+    meta: { requiresAuth: false},
   },
 
   {
@@ -50,12 +51,12 @@ const routes = [
   {
     path: "/register",
     component: register,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true ,requiredRole: "Owner"},
   },
   {
     path: "/admin",
     component: admin,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "Owner"},
   },
   {
     path: "/admin_login",
@@ -66,7 +67,7 @@ const routes = [
   {
     path: "/deleteuser",
     component: deleteuser,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true ,requiredRole: "Owner" },
   },
   {
     path: "/download",
@@ -117,24 +118,40 @@ const routes = [
     redirect: "/",
   },
 ];
-
 const router = createRouter({ history: createWebHistory(), routes });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.path === "/login" && auth.currentUser) {
     next();
     return;
   }
-
-  if (
-    to.matched.some((record) => record.meta.requiresAuth) &&
-    !auth.currentUser
-  ) {
-    next("/signin");
-    return;
+  
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const user = auth.currentUser;
+  
+  if (requiresAuth) {
+    if (!user) {
+      next("/signin");
+    } else {
+      const idTokenResult = await user.getIdTokenResult();
+      console.log("ID Token Result:", idTokenResult); // Debugging statement
+      const userRole = idTokenResult.claims.role; // Get the user's role from claims
+      const requiredRole = to.meta.requiredRole;
+      
+      console.log("User Role:", userRole);
+      console.log("Required Role:", requiredRole);
+      
+      if (userRole === requiredRole) {
+        next(); // User has the required role, allow access
+      } else {
+        console.log("Access Denied!");
+        next("/home"); // User doesn't have required role, redirect
+      }
+    }
+  } else {
+    next(); // No authentication required, allow access
   }
-
-  next();
 });
 
 export default router;
+ 

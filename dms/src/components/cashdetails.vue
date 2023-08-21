@@ -62,7 +62,7 @@
           .then((response) => {
             this.docfiles = response.data.files.map((file) => ({
               name: file,
-              url: `/uploads/${file}`,
+              url: `/${this.selectedFileType}_uploads/${file}`,
             }));
             console.log("try me", response.data);
           })

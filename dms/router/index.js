@@ -26,7 +26,7 @@ const routes = [
     path: "/department",
     component: department,
 
-    meta: { requiresAuth: true ,requiredRole: "Owner"},
+    meta: { requiresAuth: true ,requiredRole: ""},
   },
   {
     path: "/contactus",
@@ -77,7 +77,7 @@ const routes = [
   {
     path: "/ops",
     component: ops,
-    meta: { requiresAuth: true,requiredRole: "Owner" },
+    meta: { requiresAuth: true,requiredRole: "" },
   },
 
   {

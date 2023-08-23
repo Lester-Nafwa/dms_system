@@ -29,8 +29,9 @@
   <style>
 
 .image-dimensions{
-  height: 38em;
-  padding-right: 5em;
+  height: 37em;
+  padding: 1.5em;
+  width:34em
 }
 
 </style>

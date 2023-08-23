@@ -1,11 +1,10 @@
- 
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const app = express();
 const fs = require("fs");
 const path = require("path");
-const admin = require("firebase-admin"); 
+const admin = require("firebase-admin");
 
 const corsOptions = {
   origin: "http://localhost:8080",
@@ -19,7 +18,6 @@ app.use("/rms_uploads", express.static("rms_uploads"));
 app.use("/ops_uploads", express.static("ops_uploads"));
 app.use("/cs_uploads", express.static("cs_uploads"));
 app.use("/cash_uploads", express.static("cash_uploads"));
-
 
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {
@@ -89,6 +87,22 @@ app.use((err, _req, res, _next) => {
     res.status(500).json({ error: "An error occurred" });
   }
 });
+app.delete("/api/upload/data/delete/:fileType/:fileName", (req, res) => {
+  const { fileType, fileName } = req.params;
+  const filePath = path.join(__dirname, `${fileType}_uploads`, fileName);
+  console.log("Deleting file at path:", filePath);
+
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error("Error deleting file:", err);
+      res.status(500).json({ error: "Error deleting file" });
+      return;
+    }
+
+    res.json({ message: "File deleted successfully" });
+  });
+});
+
 
 app.get("/api/upload/data/:fileType", (_req, res) => {
   const directoryPath = path.join(__dirname, _req.params.fileType + "_uploads");

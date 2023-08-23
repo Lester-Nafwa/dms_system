@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import { db } from '../database';
+     import { db } from '../../firebase/firebase';
     
     export default {
         data() {

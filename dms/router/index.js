@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { auth } from "../firebase";
+import { auth,assignRoleToUser  } from "../firebase/firebase";
 import home from "@/components/home.vue";
 import signin from "@/components/signin.vue";
 import register from "@/components/register.vue";
@@ -26,8 +26,7 @@ const routes = [
     path: "/department",
     component: department,
 
-    meta: { requiresAuth: true,
-  },
+    meta: { requiresAuth: true ,requiredRole: "Owner"},
   },
   {
     path: "/contactus",
@@ -45,7 +44,7 @@ const routes = [
   {
     path: "/forgetpass",
     component: forgetpass,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "Owner" },
   },
 
   {
@@ -78,7 +77,7 @@ const routes = [
   {
     path: "/ops",
     component: ops,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "Owner" },
   },
 
   {
@@ -141,7 +140,8 @@ router.beforeEach(async (to, from, next) => {
       console.log("User Role:", userRole);
       console.log("Required Role:", requiredRole);
       
-      if (userRole === requiredRole) {
+      if (userRole !== requiredRole) {
+        await assignRoleToUser(user.uid, requiredRole);
         next(); // User has the required role, allow access
       } else {
         console.log("Access Denied!");

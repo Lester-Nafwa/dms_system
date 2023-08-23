@@ -1,4 +1,4 @@
-// import { auth } from "../firebase";
+ 
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
@@ -6,16 +6,6 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const admin = require("firebase-admin"); 
-
- 
-
-// var serviceAccount = require(auth);
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://dms-kenya-default-rtdb.firebaseio.com"
-// });
-
 
 const corsOptions = {
   origin: "http://localhost:8080",

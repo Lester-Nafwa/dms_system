@@ -16,7 +16,7 @@
                 Preview
               </button>
             </div>
-            <div><button class="delete-btn">Delete</button></div>
+            <div><button class="delete-btn" @click="deleteFile(selectedFileType, file.name)">Delete</button></div>
             <div>
               <button class="share-icon">
                 <div>
@@ -83,6 +83,21 @@
         const ext = fileName.split(".").pop().toLowerCase();
         return ["jpg", "jpeg", "png", "svg"].includes(ext);
       },
+      deleteFile(fileType, fileName) {
+      const deleteUrl = `http://localhost:3000/api/upload/data/delete/${fileType}/${fileName}`;
+      console.log("Delete URL:", deleteUrl);
+
+      axios
+        .delete(deleteUrl)
+        .then(() => {
+          // ... rest of the code ...
+        })
+        .catch((error) => {
+          console.error("Error deleting file:", error);
+          // ... rest of the error handling code ...
+        });
+    }
+
     },
   };
   </script>

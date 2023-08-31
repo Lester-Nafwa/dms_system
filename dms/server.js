@@ -120,28 +120,45 @@ app.delete("/api/upload/data/delete/:fileType/:fileName", (req, res) => {
       return;
     }
 
+    // Emit a socket event indicating that a file was deleted
+    io.emit("fileDeleted", { fileType, fileName });
+
     res.json({ message: "File deleted successfully" });
   });
 });
 
+app.get("/api/upload/data/:fileType", async (req, res) => {
+  const directoryPath = path.join(__dirname, req.params.fileType + "_uploads");
 
-app.get("/api/upload/data/:fileType", (_req, res) => {
-  const directoryPath = path.join(__dirname, _req.params.fileType + "_uploads");
+  let { page, size, sort } = req.query;
+  if (!page) {
+    // Make the Default value one.
+    page = 1;
+  }
 
-  fs.readdir(directoryPath, (err, files) => {
-    if (err) {
-      console.error("Error reading directory:", err);
-      res.status(500).json({ error: "Error reading directory" });
-      return;
-    }
+  if (!size) {
+    size = 8;
+  }
+
+  const limit = parseInt(size);
+  const offset = (page - 1) * size; // Calculate the offset based on page and size
+
+  try {
+    const files = await fs.promises.readdir(directoryPath);
 
     const imageFiles = files.filter((file) => {
       const fileExtension = path.extname(file).toLowerCase();
       return [".jpg", ".jpeg", ".png", ".pdf"].includes(fileExtension);
     });
 
-    res.json({ message: "Files retrieved successfully", files: imageFiles });
-  });
+    const paginatedFiles = imageFiles.slice(offset, offset + limit); // Apply pagination
+
+    res.json({ message: "Files retrieved successfully", files: paginatedFiles });
+  } catch (err) {
+    console.error("Error reading directory:", err);
+    res.status(500).json({ error: "Error reading directory" });
+  }
 });
+
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

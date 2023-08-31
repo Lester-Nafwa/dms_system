@@ -130,7 +130,7 @@ app.delete("/api/upload/data/delete/:fileType/:fileName", (req, res) => {
 app.get("/api/upload/data/:fileType", async (req, res) => {
   const directoryPath = path.join(__dirname, req.params.fileType + "_uploads");
 
-  let { page, size, sort } = req.query;
+  let { page, size} = req.query;
   if (!page) {
     // Make the Default value one.
     page = 1;

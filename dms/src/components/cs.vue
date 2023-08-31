@@ -59,6 +59,7 @@ export default {
 }
 .details-component{
   padding-right: 2em;
+  
 }
  .text-center{
   font-size: 1.5em;

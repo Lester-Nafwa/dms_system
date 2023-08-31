@@ -149,15 +149,16 @@
   }
   
   .share-icon {
-    display: flex;
-    font-size: 0.9em;
-    font-style: lato;
-    border-radius: 0.3em;
-    background: linear-gradient(white, brown);
-    color: antiquewhite;
-    outline: none;
-    border: none;
-  }
+  display: flex;
+  font-size: 0.9em;
+  font-style: lato;
+  border-radius: 0.3em;
+  background: linear-gradient(white, brown);
+  color: antiquewhite;
+  outline: none;
+  border: none;
+}
+
   
   .share-icon:hover {
     background: green;
@@ -185,9 +186,10 @@
   }
   
   .search-items {
-    display: flex;
-    gap: 0.2em;
-  }
+  display: flex;
+  gap: 0.2em;
+  width:15em
+}
   
   .search-icons {
     height: 2em;

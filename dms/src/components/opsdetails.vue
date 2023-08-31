@@ -37,6 +37,7 @@
 <script>
 import axios from "axios";
 import Preview from "@/components/preview.vue";
+import io from "socket.io-client";
 
 export default {
   components: {
@@ -87,16 +88,24 @@ export default {
       const deleteUrl = `http://localhost:3000/api/upload/data/delete/${fileType}/${fileName}`;
       console.log("Delete URL:", deleteUrl);
 
-      axios
-        .delete(deleteUrl)
+      axios.delete(deleteUrl)
         .then(() => {
-          // ... rest of the code ...
+    
         })
+       
         .catch((error) => {
           console.error("Error deleting file:", error);
-          // ... rest of the error handling code ...
+        
         });
-    }
+        this.fetchData();
+      const socket = io("http://localhost:3000");
+      socket.on("fileDeleted", ({ fileType, fileName }) => {
+        console.log(`File deleted: ${fileType}/${fileName}`);
+        // Update your data or perform any necessary actions here
+        // For example, remove the deleted file from your docfiles array
+        this.docfiles = this.docfiles.filter((file) => file.name !== fileName);
+      });
+    },
 
   },
 };
@@ -187,16 +196,19 @@ export default {
 .search-items {
   display: flex;
   gap: 0.2em;
+  width:15em
 }
 
-.search-icons {
-  height: 2em;
-  border-radius: 0.5em;
-  color: white;
-  box-shadow: 2em;
-  padding: 0.1em;
-  border: solid grey;
-  cursor: pointer;
+.share-icon {
+  display: flex;
+  font-size: 0.9em;
+  font-style: lato;
+  border-radius: 0.3em;
+  background: linear-gradient(white, brown);
+  color: antiquewhite;
+  outline: none;
+  border: none;
+  width: 20em;
 }
 
 .search-input {

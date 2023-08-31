@@ -32,7 +32,7 @@ const routes = [
     path: "/contactus",
     component: contactus,
 
-    meta: { requiresAuth: false},
+    meta: { requiresAuth: true,requiredRole: "" },
   },
 
   {
@@ -83,34 +83,34 @@ const routes = [
   {
     path: "/cs",
     component: cs,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "" },
   },
   {
     path: "/cash",
     component: cash,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "" },
   },
   {
     path: "/relations",
     component: relations,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "" },
   },
 
   {
     path: "/stafflist",
     component: stafflist,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "" },
   },
   {
     path: "/Editstaff/:id",
     component: Editstaff,
     name: "edit",
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "" },
   },
   {
     path: "/Addstaff",
     component: Addstaff,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true,requiredRole: "" },
   },
   {
     path: "/:pathMatch(.*)*",

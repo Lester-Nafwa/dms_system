@@ -4,13 +4,34 @@ const cors = require("cors");
 const app = express();
 const fs = require("fs");
 const path = require("path");
-const admin = require("firebase-admin");
+const http = require("http");
+const socketIo = require("socket.io");
+const server = http.createServer(app);
+const io = socketIo(server);
+
+// Socket.io connection handling
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
+
+  socket.on("fileDeleted", ({ fileType, fileName }) => {
+    console.log(`File deleted: ${fileType}/${fileName}`);
+    // Update your data or perform any necessary actions here
+    // For example, remove the deleted file from your docfiles array
+    // Send a confirmation back to the client if needed
+    socket.emit("fileDeletedConfirmation", { message: "File deleted successfully" });
+  });
+});
 
 const corsOptions = {
   origin: "http://localhost:8080",
   methods: "GET, POST, PUT, DELETE",
   optionsSuccessStatus: 200,
 };
+ 
 
 app.use(cors(corsOptions));
 app.use("/uploads", express.static("uploads"));

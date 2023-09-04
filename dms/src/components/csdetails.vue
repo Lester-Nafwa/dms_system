@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-      <div v-for="(file, index) in docfiles" :key="index">
+      <div v-for="(file, index) in paginatedFiles" :key="index">
         <a :href="serverUrl + file.url" target="_blank" class="details-get">{{
           file.name
         }}</a>
@@ -84,11 +84,26 @@ export default {
       modalFileUrl: "",
       modalIsImage: false,
       selectedFileType: "cs",
+      currentPage: 1,
+      filesPerPage: 6,
     };
   },
+
+  computed: {
+    totalPages() {
+      return Math.ceil(this.docfiles.length / this.filesPerPage);
+    },
+    paginatedFiles() {
+      const start = (this.currentPage - 1) * this.filesPerPage;
+      const end = start + this.filesPerPage;
+      return this.docfiles.slice(start, end);
+    },
+  },
+
   created() {
     this.fetchData();
   },
+
   methods: {
     fetchData() {
       axios
@@ -103,6 +118,16 @@ export default {
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
     },
     openModal(fileUrl, isImage) {
       this.modalFileUrl = fileUrl;
@@ -123,16 +148,14 @@ export default {
       axios
         .delete(deleteUrl)
         .then(() => {})
-
         .catch((error) => {
           console.error("Error deleting file:", error);
         });
+
       this.fetchData();
       const socket = io("http://localhost:3000");
       socket.on("fileDeleted", ({ fileType, fileName }) => {
         console.log(`File deleted: ${fileType}/${fileName}`);
-        // Update your data or perform any necessary actions here
-        // For example, remove the deleted file from your docfiles array
         this.docfiles = this.docfiles.filter((file) => file.name !== fileName);
       });
     },
@@ -262,19 +285,19 @@ export default {
   text-decoration: none;
   color: black;
 }
-.pagination { 
+.pagination {
   gap: 3em;
   margin-left: 6em;
 }
 .btn-pg {
-  width: 5em;
-  height: 2.5em;
+  width: 5.5em;
+  height: 2.2em;
   cursor: pointer;
   color: whitesmoke;
   background-color: rgb(79, 75, 71);
   text-align: center;
   border-radius: 1em;
-  font-size: 1em;
+  font-size: 0.8em;
   font-style: lato;
   padding-top: 0.4em;
 }

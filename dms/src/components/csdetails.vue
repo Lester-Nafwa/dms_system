@@ -43,10 +43,12 @@
               <div>Share</div>
             </button>
           </div>
-          <div :class="{ 'sharing-options': file.showSharingOptions }">
-            <div>Email</div>
-            <div>Whats App</div>
-            <div>Twitter</div>
+          <div :class="{ 'sharing-options': !file.showSharingOptions }">
+            <div class="social-opt">
+              <div class="select-pts">Email</div>
+              <div class="select-pts">WhatsApp</div>
+              <div class="select-pts">Twitter</div>
+            </div>
           </div>
         </div>
       </div>
@@ -312,16 +314,33 @@ export default {
 }
 .sharing-options {
   display: none;
-  z-index: 999;
-  width: 7em;
-  height: 5em;
-  padding-left: 1em;
- 
-   
 }
 
 .sharing-options.show {
   display: block;
+}
+.social-opt {
+  z-index: 999;
+  width: 9em;
+  height: 5em;
+  padding-left: 1em;
   position: absolute;
+  background:linear-gradient(rgb(17, 207, 153),rgb(97, 172, 219));
+  color: azure;
+  border-radius: 1em;
+  font-size: 0.8em;
+  margin-left: -3em;
+}
+.social-opt:hover{
+  color: rgb(2, 79, 54);
+  background: aliceblue;
+  border: solid grey;
+}
+.select-pts:hover{
+ 
+  background:green;
+  color: white;
+  margin-right: 0.3em;
+  cursor: pointer;
 }
 </style>

@@ -36,13 +36,17 @@
               Delete
             </button>
           </div>
+
           <div>
-            <button class="share-icon">
-              <div>
-                <img src="/img-resources/share-icon.svg" class="share" />
-              </div>
+            <button class="share-icon" @click="toggleSharingOptions(file)">
+              <img src="/img-resources/share-icon.svg" class="share" />
               <div>Share</div>
             </button>
+          </div>
+          <div :class="{ 'sharing-options': file.showSharingOptions }">
+            <div>Email</div>
+            <div>Whats App</div>
+            <div>Twitter</div>
           </div>
         </div>
       </div>
@@ -129,6 +133,11 @@ export default {
         this.currentPage++;
       }
     },
+    toggleSharingOptions(file) {
+      file.showSharingOptions = !file.showSharingOptions;
+      console.log("Toggle Sharing Options", file.showSharingOptions);
+    },
+
     openModal(fileUrl, isImage) {
       this.modalFileUrl = fileUrl;
       this.modalIsImage = isImage;
@@ -300,5 +309,19 @@ export default {
   font-size: 0.8em;
   font-style: lato;
   padding-top: 0.4em;
+}
+.sharing-options {
+  display: none;
+  z-index: 999;
+  width: 7em;
+  height: 5em;
+  padding-left: 1em;
+ 
+   
+}
+
+.sharing-options.show {
+  display: block;
+  position: absolute;
 }
 </style>

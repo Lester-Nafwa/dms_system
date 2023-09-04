@@ -57,6 +57,14 @@
       />
     </div>
   </div>
+  <div class="pagination">
+    <div @click="prevPage" :disabled="currentPage === 1" class="btn-pg">
+      Previous
+    </div>
+    <div @click="nextPage" :disabled="currentPage >= totalPages" class="btn-pg">
+      Next
+    </div>
+  </div>
 </template>
 
 <script>
@@ -112,16 +120,14 @@ export default {
       const deleteUrl = `http://localhost:3000/api/upload/data/delete/${fileType}/${fileName}`;
       console.log("Delete URL:", deleteUrl);
 
-      axios.delete(deleteUrl)
-        .then(() => {
-    
-        })
-       
+      axios
+        .delete(deleteUrl)
+        .then(() => {})
+
         .catch((error) => {
           console.error("Error deleting file:", error);
-        
         });
-        this.fetchData();
+      this.fetchData();
       const socket = io("http://localhost:3000");
       socket.on("fileDeleted", ({ fileType, fileName }) => {
         console.log(`File deleted: ${fileType}/${fileName}`);
@@ -221,7 +227,7 @@ export default {
 .search-items {
   display: flex;
   gap: 0.2em;
-  width:15em
+  width: 15em;
 }
 
 .search-icons {
@@ -255,5 +261,21 @@ export default {
 .details-get {
   text-decoration: none;
   color: black;
+}
+.pagination { 
+  gap: 3em;
+  margin-left: 6em;
+}
+.btn-pg {
+  width: 5em;
+  height: 2.5em;
+  cursor: pointer;
+  color: whitesmoke;
+  background-color: rgb(79, 75, 71);
+  text-align: center;
+  border-radius: 1em;
+  font-size: 1em;
+  font-style: lato;
+  padding-top: 0.4em;
 }
 </style>

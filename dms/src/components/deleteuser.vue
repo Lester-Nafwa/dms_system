@@ -1,34 +1,54 @@
-
 <template>
+  <h2>Delete Modal</h2>
 
+  <button onclick="document.getElementById('id01').style.display='block'">
+    Open Modal
+  </button>
 
-<h2>Delete Modal</h2>
+  <div id="id01" class="modal">
+    <span
+      onclick="document.getElementById('id01').style.display='none'"
+      class="close"
+      title="Close Modal"
+      >×</span
+    >
+    <form class="modal-content" action="/action_page.php">
+      <div class="container">
+        <h1>Delete Account</h1>
+        <p>Are you sure you want to delete your account?</p>
 
-<button onclick="document.getElementById('id01').style.display='block'">Open Modal</button>
-
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-  <form class="modal-content" action="/action_page.php">
-    <div class="container">
-      <h1>Delete Account</h1>
-      <p>Are you sure you want to delete your account?</p>
-    
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
+        <div class="clearfix">
+          <button
+            type="button"
+            onclick="document.getElementById('id01').style.display='none'"
+            class="cancelbtn"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onclick="document.getElementById('id01').style.display='none'"
+            class="deletebtn"
+          >
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 </template>
 
 <style scoped>
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box;}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
 
 /* Set a style for all buttons */
 button {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -39,11 +59,12 @@ button {
 }
 
 button:hover {
-  opacity:1;
+  opacity: 1;
 }
 
 /* Float cancel and delete buttons and add an equal width */
-.cancelbtn, .deletebtn {
+.cancelbtn,
+.deletebtn {
   float: left;
   width: 50%;
 }
@@ -92,7 +113,7 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
- 
+
 /* The Modal Close Button (x) */
 .close {
   position: absolute;
@@ -102,7 +123,6 @@ hr {
   font-weight: bold;
   color: #f1f1f1;
 }
-
 .close:hover,
 .close:focus {
   color: #f44336;
@@ -118,21 +138,18 @@ hr {
 
 /* Change styles for cancel button and delete button on extra small screens */
 @media screen and (max-width: 300px) {
-  .cancelbtn, .deletebtn {
-     width: 100%;
+  .cancelbtn,
+  .deletebtn {
+    width: 100%;
   }
 }
 </style>
 
-
 <script>
-
-var modal = document.getElementById('id01');
-window.onclick = function(event) {
+var modal = document.getElementById("id01");
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}
+};
 </script>
-
-

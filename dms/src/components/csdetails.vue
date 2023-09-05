@@ -4,13 +4,19 @@
       <div class="sect-search">
         <div class="search-items">
           <div>
-            <input type="text" placeholder="Search File" class="search-input" />
+            <input
+              type="text"
+              placeholder="Search File"
+              class="search-input"
+              v-model="searchQuery"
+            />
           </div>
           <div>
             <img
               src="/img-resources/manage_search.svg"
               alt=""
               class="search-icons"
+              @click="searchData"
             />
           </div>
         </div>
@@ -92,6 +98,8 @@ export default {
       selectedFileType: "cs",
       currentPage: 1,
       filesPerPage: 6,
+      searchQuery: "", // Data property to store the search query
+      searchResults: [],
     };
   },
 
@@ -169,6 +177,16 @@ export default {
         console.log(`File deleted: ${fileType}/${fileName}`);
         this.docfiles = this.docfiles.filter((file) => file.name !== fileName);
       });
+    },
+    searchData() {
+      axios
+        .get(`http://localhost:3000/api/upload/data?q=${this.searchQuery}`)
+        .then((response) => {
+          this.searchResults = response.data.results;
+        })
+        .catch((error) => {
+          console.error("Error searching files:", error);
+        });
     },
   },
 };
@@ -325,20 +343,19 @@ export default {
   height: 5em;
   padding-left: 1em;
   position: absolute;
-  background:linear-gradient(rgb(17, 207, 153),rgb(97, 172, 219));
+  background: linear-gradient(rgb(17, 207, 153), rgb(97, 172, 219));
   color: azure;
   border-radius: 1em;
   font-size: 0.8em;
   margin-left: -3em;
 }
-.social-opt:hover{
+.social-opt:hover {
   color: rgb(2, 79, 54);
   background: aliceblue;
   border: solid grey;
 }
-.select-pts:hover{
- 
-  background:green;
+.select-pts:hover {
+  background: green;
   color: white;
   margin-right: 0.3em;
   cursor: pointer;

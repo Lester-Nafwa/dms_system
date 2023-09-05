@@ -6,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const http = require("http");
 const socketIo = require("socket.io");
+const { error } = require("console");
 const server = http.createServer(app);
 const io = socketIo(server);
 
@@ -22,7 +23,9 @@ io.on("connection", (socket) => {
     // Update your data or perform any necessary actions here
     // For example, remove the deleted file from your docfiles array
     // Send a confirmation back to the client if needed
-    socket.emit("fileDeletedConfirmation", { message: "File deleted successfully" });
+    socket.emit("fileDeletedConfirmation", {
+      message: "File deleted successfully",
+    });
   });
 });
 
@@ -31,7 +34,6 @@ const corsOptions = {
   methods: "GET, POST, PUT, DELETE",
   optionsSuccessStatus: 200,
 };
- 
 
 app.use(cors(corsOptions));
 app.use("/uploads", express.static("uploads"));
@@ -130,7 +132,7 @@ app.delete("/api/upload/data/delete/:fileType/:fileName", (req, res) => {
 app.get("/api/upload/data/:fileType", async (req, res) => {
   const directoryPath = path.join(__dirname, req.params.fileType + "_uploads");
 
-  let { page, size} = req.query;
+  let { page, size } = req.query;
   if (!page) {
     // Make the Default value one.
     page = 1;
@@ -153,12 +155,57 @@ app.get("/api/upload/data/:fileType", async (req, res) => {
 
     const paginatedFiles = imageFiles.slice(offset, offset + limit); // Apply pagination
 
-    res.json({ message: "Files retrieved successfully", files: paginatedFiles });
+    res.json({
+      message: "Files retrieved successfully",
+      files: paginatedFiles,
+    });
   } catch (err) {
     console.error("Error reading directory:", err);
     res.status(500).json({ error: "Error reading directory" });
   }
 });
+app.get("/api/upload/data", async (req, res) => {
+  const directoryPath = path.join(__dirname, "cs_uploads");
+  const query = req.query.q || ""; 
+  async function searchFiles(directoryPath, query) {
+    try {
+      const files = await fs.promises.readdir(directoryPath);
 
+      const matchingFiles = await Promise.all(
+        files.map(async (file) => {
+          const filePath = path.join(directoryPath, file);
+  
+          const stats = await fs.promises.stat(filePath);
+  
+          if (stats.isDirectory()) {
+            // If it's a directory, recursively search inside it
+            return searchFiles(filePath, query);
+          } else {
+            // If it's a file, check if it matches the query
+            if (file.toLowerCase().includes(query.toLowerCase())) {
+              return filePath;
+            }
+          }
+        })
+      );
+  
+      // Flatten the array of matching files
+      return matchingFiles.flat().filter(Boolean);
+    } catch (error) {
+      console.error("Error searching files:", error);
+      throw error;
+    }
+  }
+  searchFiles(directoryPath, query)
+  .then((results) => {
+    // Handle and return the results as needed
+    console.log("Matching files:", results);
+    res.json({ results });
+  })
+  .catch((error) => {
+    console.error("Error searching files:", error);
+    res.status(500).json({ error: "Error searching files" });
+  });
+});
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

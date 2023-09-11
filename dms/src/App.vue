@@ -4,10 +4,10 @@
     <div class="navbar-header">
       <div class="header-nav">
         <div class="nav-item">
-          <router-link to="/home"> HOME </router-link>
+          <router-link to="/home"> Home </router-link>
         </div>
         <div class="nav-item">
-          <router-link aria-current="page" to="/signin"> Signin </router-link>
+          <router-link  to="/signin"> SignIn </router-link>
         </div>
         <div class="nav-item">
           <router-link to="/admin_login"> Admin </router-link>
@@ -15,7 +15,7 @@
       </div>
     </div>
  
-      <div>
+      <div class="header-details">
         <div>
           <div>
           <img
@@ -24,17 +24,20 @@
             class="header-img"
           />
           </div>
-          <hr />
-          <h2>KDMS-SYSTEM</h2>
+          <div class="k-dms-sub">
+          <span>KDMS-SYSTEM</span>
+          </div>
         </div>
       </div>
+      <hr />
+    </div>
         <router-view />
         <div class="jumbotron text-center mb-0 fixed-bottom bg-dark text-white">
           <p>k-dms.co.ke</p>
         </div>
       </div>
  
-  </div>
+  
 </template>
 <script>
 export default {
@@ -57,7 +60,7 @@ button {
   border: none;
 }
 .header {
-  background: linear-gradient(green, rgb(217, 237, 200));
+  background: linear-gradient(green, white);
 }
 .header-nav{
   display: flex;
@@ -65,12 +68,13 @@ button {
   margin-left: 4em;
   height: 100%;
 }
-.nav-item{
+.nav-item router-link{
   text-decoration: none;
   font-style: normal;
   font-family: lato;
   font-size: 1em;
   color: whitesmoke;
+  font-style: oblique;
 }
 .header-img{
   width:6em;
@@ -82,6 +86,14 @@ button {
   height: 4em;
   padding-top: 1em;
   border-bottom: whitesmoke;
-  box-shadow: inset;
+  box-shadow:2em;
+}
+.header-details{
+  margin-left: 45%;
+  margin-top: 1.5em;
+}
+.k-dms-sub{
+  margin-left: -1.5em;
+  font-size: 1.3em;
 }
 </style>

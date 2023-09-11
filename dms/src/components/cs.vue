@@ -20,7 +20,7 @@
     <div class="card-body">
       <div class="posted-image">
         <div>
-          <span>Updated Documents </span>
+          <span class="cs_update-head">Updated Documents </span>
         </div>
         <Csdetails  class="details-component"/>
       </div>
@@ -54,8 +54,8 @@ export default {
 .fields-sec{
   width: 25em;
   margin-left: 4em;
-  margin-top: 2em;
   border-radius: 0.5em;
+  height:35em ;
 }
 .details-component{
   padding-right: 2em;
@@ -64,5 +64,10 @@ export default {
  .text-center{
   font-size: 1.5em;
   font-family: lato;
+ }
+ .cs_update-head{
+font-size: 1.5em;
+margin-left: 1em;
+margin-bottom: 0.3em;
  }
 </style>

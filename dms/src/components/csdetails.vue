@@ -1,6 +1,8 @@
 <template>
   <div class="details-file">
     <div class="items-buttons">
+      <div v-if="searchError" class="error-message">{{ searchError }}</div>
+
       <div class="sect-search">
         <div class="search-items">
           <div>
@@ -179,13 +181,19 @@ export default {
       });
     },
     searchData() {
+      const fileType = this.selectedFileType; // Assuming you have a variable to store the selected file type
       axios
-        .get(`http://localhost:3000/api/upload/data?q=${this.searchQuery}`)
+        .get(
+          `http://localhost:3000/api/upload/data/search?q=${this.searchQuery}&fileType=${fileType}`
+        )
         .then((response) => {
           this.searchResults = response.data.results;
+          
         })
         .catch((error) => {
           console.error("Error searching files:", error);
+
+          this.searchError = "An error occurred while searching files.";
         });
     },
   },
@@ -199,10 +207,11 @@ export default {
   padding: 1em;
   display: flex;
   gap: 2em;
+  margin-top: -1em;
 }
 
 .items-preview {
-  height: 40em;
+  height: 35em;
   width: 34em;
   background: whitesmoke;
   border: solid grey;

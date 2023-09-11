@@ -164,48 +164,35 @@ app.get("/api/upload/data/:fileType", async (req, res) => {
     res.status(500).json({ error: "Error reading directory" });
   }
 });
-app.get("/api/upload/data", async (req, res) => {
-  const directoryPath = path.join(__dirname, "cs_uploads");
-  const query = req.query.q || ""; 
-  async function searchFiles(directoryPath, query) {
-    try {
-      const files = await fs.promises.readdir(directoryPath);
+app.get("/api/upload/data/search/:fileType", (req, res) => {
+  
+  const directoryPath = path.join(__dirname, req.params.fileType + "_uploads");
+  try {
+    const query = req.query.q;
 
-      const matchingFiles = await Promise.all(
-        files.map(async (file) => {
-          const filePath = path.join(directoryPath, file);
-  
-          const stats = await fs.promises.stat(filePath);
-  
-          if (stats.isDirectory()) {
-            // If it's a directory, recursively search inside it
-            return searchFiles(filePath, query);
-          } else {
-            // If it's a file, check if it matches the query
-            if (file.toLowerCase().includes(query.toLowerCase())) {
-              return filePath;
-            }
-          }
-        })
-      );
-  
-      // Flatten the array of matching files
-      return matchingFiles.flat().filter(Boolean);
-    } catch (error) {
-      console.error("Error searching files:", error);
-      throw error;
+    // Assuming you want to search in the appropriate upload directory based on fileType
+
+    console.log("req.params.fileType:", req.params.fileType);
+ 
+    console.log("file path", directoryPath);
+    
+    console.log("req.params.fileType:", req.params.fileType);
+
+    if (!fs.existsSync(directoryPath)) {
+      // Handle the case where the directory doesn't exist
+      return res.status(404).json({ error:  "Directory not found" });
     }
-  }
-  searchFiles(directoryPath, query)
-  .then((results) => {
-    // Handle and return the results as needed
-    console.log("Matching files:", results);
+
+    // Filter files based on the query (contains search)
+    const results = files.filter((file) =>
+      file.toLowerCase().includes(query.toLowerCase())
+    );
+
     res.json({ results });
-  })
-  .catch((error) => {
-    console.error("Error searching files:", error);
+  } catch (err) {
+    console.error("Error searching files:", err);
     res.status(500).json({ error: "Error searching files" });
-  });
+  }
 });
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

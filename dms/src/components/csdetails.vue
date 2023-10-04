@@ -6,69 +6,52 @@
       <div class="sect-search">
         <div class="search-items">
           <div>
-            <input
-              type="text"
-              placeholder="Search File"
-              class="search-input"
-              v-model="searchQuery"
-            />
+            <input type="text" placeholder="Search File" class="search-input" v-model="searchQuery" />
           </div>
           <div>
-            <img
-              src="/img-resources/manage_search.svg"
-              alt=""
-              class="search-icons"
-              @click="searchData"
-            />
+            <img src="/img-resources/manage_search.svg" alt="" class="search-icons" @click="searchData" />
           </div>
         </div>
       </div>
-      <div v-for="(file, index) in paginatedFiles" :key="index">
-        <a :href="serverUrl + file.url" target="_blank" class="details-get">{{
-          file.name
-        }}</a>
-        <div class="buttons-opts">
-          <div>
-            <button
-              @click="openModal(serverUrl + file.url, isImage(file.name))"
-              class="btn-preview"
-            >
-              Preview
-            </button>
-          </div>
-          <div>
-            <button
-              class="delete-btn"
-              @click="deleteFile(selectedFileType, file.name)"
-            >
-              Delete
-            </button>
-          </div>
+      <div v-if="paginatedFiles.length === 0" class="no-data-message">
+        No data found
+      </div>
+      <div v-else>
+        <div v-for="(file, index) in paginatedFiles" :key="index">
+          <a :href="serverUrl + file.url" target="_blank" class="details-get">{{
+            file.name
+          }}</a>
+          <div class="buttons-opts">
+            <div>
+              <button @click="openModal(serverUrl + file.url, isImage(file.name))" class="btn-preview">
+                Preview
+              </button>
+            </div>
+            <div>
+              <button class="delete-btn" @click="deleteFile(selectedFileType, file.name)">
+                Delete
+              </button>
+            </div>
 
-          <div>
-            <button class="share-icon" @click="toggleSharingOptions(file)">
-              <img src="/img-resources/share-icon.svg" class="share" />
-              <div>Share</div>
-            </button>
-          </div>
-          <div :class="{ 'sharing-options': !file.showSharingOptions }">
-            <div class="social-opt">
-              <div class="select-pts">Email</div>
-              <div class="select-pts">WhatsApp</div>
-              <div class="select-pts">Twitter</div>
+            <div>
+              <button class="share-icon" @click="toggleSharingOptions(file)">
+                <img src="/img-resources/share-icon.svg" class="share" />
+                <div>Share</div>
+              </button>
+            </div>
+            <div :class="{ 'sharing-options': !file.showSharingOptions }">
+              <div class="social-opt">
+                <div class="select-pts">Email</div>
+                <div class="select-pts">WhatsApp</div>
+                <div class="select-pts">Twitter</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="items-preview">
-      <Preview
-        :show="modalShow"
-        :fileUrl="modalFileUrl"
-        :isImage="modalIsImage"
-        @close="closeModal"
-        class="list-items"
-      />
+      <Preview :show="modalShow" :fileUrl="modalFileUrl" :isImage="modalIsImage" @close="closeModal" class="list-items" />
     </div>
   </div>
   <div class="pagination">
@@ -168,7 +151,7 @@ export default {
 
       axios
         .delete(deleteUrl)
-        .then(() => {})
+        .then(() => { })
         .catch((error) => {
           console.error("Error deleting file:", error);
         });
@@ -181,20 +164,31 @@ export default {
       });
     },
     searchData() {
-      const fileType = this.selectedFileType; // Assuming you have a variable to store the selected file type
+      const fileType = this.selectedFileType; // Get the selected file type
+      const query = this.searchQuery; // Get the search query
+
+      // Check if the query is empty, and if so, don't make the request
+      if (!query) {
+        console.log("Search query is empty. Please enter a query.");
+        return;
+      }
+
       axios
+
         .get(
-          `http://localhost:3000/api/upload/data/search?q=${this.searchQuery}&fileType=${fileType}`
+          `http://localhost:3000/api/upload/data/search/${fileType}?q=${query}`
         )
+
         .then((response) => {
           this.searchResults = response.data.results;
-          
         })
+
         .catch((error) => {
           console.error("Error searching files:", error);
 
           this.searchError = "An error occurred while searching files.";
         });
+      console.log("Searching data...");
     },
   },
 };
@@ -323,10 +317,12 @@ export default {
   text-decoration: none;
   color: black;
 }
+
 .pagination {
   gap: 3em;
   margin-left: 6em;
 }
+
 .btn-pg {
   width: 5.5em;
   height: 2.2em;
@@ -339,6 +335,7 @@ export default {
   font-style: lato;
   padding-top: 0.4em;
 }
+
 .sharing-options {
   display: none;
 }
@@ -346,6 +343,7 @@ export default {
 .sharing-options.show {
   display: block;
 }
+
 .social-opt {
   z-index: 999;
   width: 9em;
@@ -358,11 +356,13 @@ export default {
   font-size: 0.8em;
   margin-left: -3em;
 }
+
 .social-opt:hover {
   color: rgb(2, 79, 54);
   background: aliceblue;
   border: solid grey;
 }
+
 .select-pts:hover {
   background: green;
   color: white;

@@ -4,13 +4,13 @@
     <div class="navbar-header">
       <div class="header-nav">
         <div class="nav-item">
-          <router-link to="/home"> Home </router-link>
+          <router-link to="/home" class="items-nav"> Home </router-link>
         </div>
         <div class="nav-item">
-          <router-link  to="/signin"> SignIn </router-link>
+          <router-link  to="/signin"  class="items-nav"> Sign in </router-link>
         </div>
         <div class="nav-item">
-          <router-link to="/admin_login"> Admin </router-link>
+          <router-link to="/admin_login"  class="items-nav"> Admin </router-link>
         </div>
       </div>
     </div>
@@ -69,7 +69,7 @@ button {
   height: 100%;
 }
 .nav-item router-link{
-  text-decoration: none;
+ 
   font-style: normal;
   font-family: lato;
   font-size: 1em;
@@ -91,6 +91,15 @@ button {
 .header-details{
   margin-left: 45%;
   margin-top: 1.5em;
+}
+.items-nav{
+  color: whitesmoke;
+  text-decoration: none;
+  cursor: pointer;
+}
+.items-nav:hover{
+  color: brown;
+  
 }
 .k-dms-sub{
   margin-left: -1.5em;

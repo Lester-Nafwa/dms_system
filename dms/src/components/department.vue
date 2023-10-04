@@ -10,33 +10,33 @@
       <transition name="slide">
         <table class="table-item">
           <tr>
-            <td>Cs</td>
+            <td class="td-data">Cs </td>
             <td>
-              <router-link class="nav-link link-dark" to="/cs">
-                Customer_Service
+              <router-link class="nav-link" to="/cs">
+                Customer service
               </router-link>
             </td>
           </tr>
           <tr>
-            <td>Ksh</td>
+            <td class="td-data">Ksh </td>
             <td>
-              <router-link class="nav-link link-dark" to="/cash">
+              <router-link class="nav-link" to="/cash">
                 Cash
               </router-link>
             </td>
           </tr>
           <tr>
-            <td>Ops</td>
+            <td class="td-data">Ops </td>
             <td>
-              <router-link class="nav-link link-dark" to="/ops">
+              <router-link class="nav-link" to="/ops">
                 Operations
               </router-link>
             </td>
           </tr>
           <tr>
-            <td>RMs</td>
+            <td class="td-data">RMs </td>
             <td>
-              <router-link class="nav-link link-dark" to="/relations">
+              <router-link class="nav-link " to="/relations">
                 Relationship
               </router-link>
             </td>
@@ -104,8 +104,21 @@ h1 {
 .table-item {
   font: 1em;
 }
-
+.nav-link{
+  margin-left: 1em;
+}
+.nav-link:hover{
+color: green;
+}
+td{
+font-size:0.8em;
+}
+.td-data{
+  border-right: solid rgb(71, 66, 66) 0.3em;
+  padding-right: 1em;
+}
 .departments-list {
 margin-left: 30em; 
+ 
 }
 </style>

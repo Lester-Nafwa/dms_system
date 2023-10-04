@@ -7,8 +7,7 @@
     <div>
       <form @submit.prevent="onSubmit" enctype="multipart/form-data">
         <button type="button" class="btn btn-outline-primary">
-          <router-link class="nav-link link-dark" to="/department"
-            >BACK
+          <router-link class="nav-link link-dark" to="/department">BACK
           </router-link>
         </button>
         <div class="fields">
@@ -22,7 +21,7 @@
         <div>
           <span>Updated Documents </span>
         </div>
-        <Cashdetails  class="details-component"/>
+        <Cashdetails class="details-component" />
       </div>
     </div>
   </div>
@@ -48,20 +47,24 @@ export default {
 .file {
   display: flex;
 }
-.card-body{
+
+.card-body {
   margin-left: 12em;
 }
-.fields-sec{
+
+.fields-sec {
   width: 25em;
   margin-left: 4em;
   margin-top: 2em;
   border-radius: 0.5em;
 }
-.details-component{
+
+.details-component {
   padding-right: 2em;
 }
-  .text-center{
+
+.text-center {
   font-size: 1.5em;
   font-family: lato;
- }
+}
 </style>

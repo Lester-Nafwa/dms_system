@@ -164,30 +164,43 @@ app.get("/api/upload/data/:fileType", async (req, res) => {
     res.status(500).json({ error: "Error reading directory" });
   }
 });
-app.get("/api/upload/data/search/:fileType", (req, res) => {
-  
-  const directoryPath = path.join(__dirname, req.params.fileType + "_uploads");
+app.get("/api/upload/data/search/:fileType", async (req, res) => {
+  console.log("Received search request");
   try {
     const query = req.query.q;
+    console.log("Query Parameter:", query);
+    const fileType = req.params.fileType;
 
-    // Assuming you want to search in the appropriate upload directory based on fileType
-
-    console.log("req.params.fileType:", req.params.fileType);
- 
-    console.log("file path", directoryPath);
-    
-    console.log("req.params.fileType:", req.params.fileType);
-
-    if (!fs.existsSync(directoryPath)) {
-      // Handle the case where the directory doesn't exist
-      return res.status(404).json({ error:  "Directory not found" });
+    // Construct the correct directory path based on the fileType
+    let directoryPath;
+    switch (fileType) {
+      case "cash":
+        directoryPath = path.join(__dirname, "cash_uploads");
+        break;
+      case "cs":
+        directoryPath = path.join(__dirname, "cs_uploads");
+        break;
+      case "rms":
+        directoryPath = path.join(__dirname, "rms_uploads");
+        break;
+      case "ops":
+        directoryPath = path.join(__dirname, "ops_uploads");
+        break;
+      default:
+        return res.status(400).json({ error: "Invalid fileType" });
     }
+    console.log("Received search request. Query:", query, "File Type:", fileType);
+
+    // Read files from the directory
+    const files = await fs.promises.readdir(directoryPath);
+    console.log("Directory Path:", directoryPath);
+
 
     // Filter files based on the query (contains search)
     const results = files.filter((file) =>
-      file.toLowerCase().includes(query.toLowerCase())
+      file?.includes(query)
     );
-
+    
     res.json({ results });
   } catch (err) {
     console.error("Error searching files:", err);

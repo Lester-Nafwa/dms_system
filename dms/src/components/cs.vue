@@ -6,11 +6,13 @@
   <div class="file">
     <div>
       <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+        <div class="btn-back"> 
         <button type="button" class="btn btn-outline-primary">
-          <router-link class="nav-link link-dark" to="/department"
+          <router-link class="nav-link" to="/department"
             >BACK
           </router-link>
         </button>
+      </div>
         <div class="fields">
           <cs_downloads class="fields-sec"></cs_downloads>
         </div>
@@ -69,5 +71,9 @@ export default {
 font-size: 1.5em;
 margin-left: 1em;
 margin-bottom: 0.3em;
+ }
+ .btn-back{
+  margin-left: 4em;
+  margin-bottom: 1em;
  }
 </style>
